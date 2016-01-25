@@ -4,6 +4,8 @@ using Toybox.System as Sys;
 using Toybox.Lang as Lang;
 using Toybox.Application as App;
 using Toybox.ActivityMonitor as Act;
+using Toybox.Time as Time;
+using Toybox.Time.Gregorian as Cal;
 
 class SecretAgentView extends Ui.WatchFace {
 
@@ -77,8 +79,8 @@ class SecretAgentView extends Ui.WatchFace {
         dc.fillRectangle(w/2-smBlockH/2, 10*eleventhH, smBlockH, blockW);
         
         // Show status info
+        dc.setColor( App.getApp().getProperty("ForegroundColor"), Gfx.COLOR_TRANSPARENT );
         if (App.getApp().getProperty("ShowStatusInfo")) {
-            dc.setColor( App.getApp().getProperty("ForegroundColor"), Gfx.COLOR_TRANSPARENT );
             var infoStr = "";
             var alarmNum = Sys.getDeviceSettings().alarmCount;
             if (alarmNum > 0) {
@@ -108,6 +110,14 @@ class SecretAgentView extends Ui.WatchFace {
             }
             dc.drawText(w/2, 9*eleventhH-blockH, Gfx.FONT_TINY, infoStr, Gfx.TEXT_JUSTIFY_CENTER);
         }
+        
+        // Show date info
+        var now = Time.now();
+        var date = Cal.info(now, Time.FORMAT_MEDIUM);
+        var longDate = Cal.info(now, Time.FORMAT_LONG);
+        var dateStr = "" + date.month + " " + date.day + ", " + date.year;
+        dc.drawText(w/2, 3*eleventhH-blockH+2, Gfx.FONT_TINY, dateStr, Gfx.TEXT_JUSTIFY_CENTER);
+        dc.drawText(w/2, 2*eleventhH-blockH+1, Gfx.FONT_TINY, longDate.day_of_week, Gfx.TEXT_JUSTIFY_CENTER);
         
         // Get steps info
         var actInfo = Act.getInfo();
