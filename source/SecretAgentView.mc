@@ -110,7 +110,7 @@ class SecretAgentView extends Ui.WatchFace {
             infoStr = infoStr + "  ";
             if (Sys.getDeviceSettings().phoneConnected)
             {
-                infoStr = infoStr + "P";
+                infoStr = infoStr + "C";
             }
             else
             {
