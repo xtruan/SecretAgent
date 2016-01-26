@@ -68,10 +68,18 @@ class SecretAgentView extends Ui.WatchFace {
         // Add decor
         dc.setColor( Gfx.COLOR_WHITE,  Gfx.COLOR_TRANSPARENT );
         
-        dc.fillCircle(fourthW-blockH, 3*eleventhH, halfBlockH);
-        dc.fillCircle(fourthW-blockH, 8*eleventhH, halfBlockH);
-        dc.fillCircle(w-fourthW+blockH, 3*eleventhH, halfBlockH);
-        dc.fillCircle(w-fourthW+blockH, 8*eleventhH, halfBlockH);
+        dc.fillCircle(fourthW*1.5-blockH, 2*eleventhH, halfBlockH);
+        dc.fillCircle(fourthW-blockH, 3.5*eleventhH, halfBlockH);
+        dc.fillCircle(fourthW-blockH, 7.5*eleventhH, halfBlockH);
+        dc.fillCircle(fourthW*1.5-blockH, 9*eleventhH, halfBlockH);
+        
+        dc.fillCircle(w-fourthW*1.5+blockH, 2*eleventhH, halfBlockH);
+        dc.fillCircle(w-fourthW+blockH, 3.5*eleventhH, halfBlockH);
+        dc.fillCircle(w-fourthW+blockH, 7.5*eleventhH, halfBlockH);
+        dc.fillCircle(w-fourthW*1.5+blockH, 9*eleventhH, halfBlockH);
+        
+        //dc.fillRoundedRectangle(fourthW/1.75, 3*eleventhH-halfBlockH, 7*blockW, 7*eleventhH, 40);
+        
         dc.fillRectangle(fourthW/2, 5.5*eleventhH-halfSmBlockH, blockW, smBlockH);
         dc.fillRectangle(w-blockW-fourthW/2, 5.5*eleventhH-halfSmBlockH, blockW, smBlockH);
         dc.fillRectangle(w/2-3*smBlockH/2, eleventhH-blockH, smBlockH, blockW);
@@ -102,7 +110,7 @@ class SecretAgentView extends Ui.WatchFace {
             infoStr = infoStr + "  ";
             if (Sys.getDeviceSettings().phoneConnected)
             {
-                infoStr = infoStr + "C";
+                infoStr = infoStr + "P";
             }
             else
             {
