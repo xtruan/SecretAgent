@@ -65,27 +65,6 @@ class SecretAgentView extends Ui.WatchFace {
         var halfSmBlockH = smBlockH/2;
         var blockW = 15;
         
-        // Add decor
-        dc.setColor( Gfx.COLOR_WHITE,  Gfx.COLOR_TRANSPARENT );
-        
-        dc.fillCircle(fourthW*1.5-blockH, 2*eleventhH, halfBlockH);
-        dc.fillCircle(fourthW-blockH, 3.5*eleventhH, halfBlockH);
-        dc.fillCircle(fourthW-blockH, 7.5*eleventhH, halfBlockH);
-        dc.fillCircle(fourthW*1.5-blockH, 9*eleventhH, halfBlockH);
-        
-        dc.fillCircle(w-fourthW*1.5+blockH, 2*eleventhH, halfBlockH);
-        dc.fillCircle(w-fourthW+blockH, 3.5*eleventhH, halfBlockH);
-        dc.fillCircle(w-fourthW+blockH, 7.5*eleventhH, halfBlockH);
-        dc.fillCircle(w-fourthW*1.5+blockH, 9*eleventhH, halfBlockH);
-        
-        //dc.fillRoundedRectangle(fourthW/1.75, 3*eleventhH-halfBlockH, 7*blockW, 7*eleventhH, 40);
-        
-        dc.fillRectangle(fourthW/2, 5.5*eleventhH-halfSmBlockH, blockW, smBlockH);
-        dc.fillRectangle(w-blockW-fourthW/2, 5.5*eleventhH-halfSmBlockH, blockW, smBlockH);
-        dc.fillRectangle(w/2-3*smBlockH/2, eleventhH-blockH, smBlockH, blockW);
-        dc.fillRectangle(w/2+smBlockH/2, eleventhH-blockH, smBlockH, blockW);
-        dc.fillRectangle(w/2-smBlockH/2, 10*eleventhH, smBlockH, blockW);
-        
         // Show status info
         dc.setColor( App.getApp().getProperty("ForegroundColor"), Gfx.COLOR_TRANSPARENT );
         if (App.getApp().getProperty("ShowStatusInfo")) {
@@ -93,39 +72,44 @@ class SecretAgentView extends Ui.WatchFace {
             var alarmNum = Sys.getDeviceSettings().alarmCount;
             if (alarmNum > 0) {
                 infoStr = infoStr + "A";
-            }
-            else
-            {
+            } else {
                 infoStr = infoStr + "--";
             }
             infoStr = infoStr + "  ";
             var notifyNum = Sys.getDeviceSettings().notificationCount;
             if (notifyNum > 0) {
                 infoStr = infoStr + "M";
-            }
-            else
-            {
+            } else {
                 infoStr = infoStr + "--";
             }
             infoStr = infoStr + "  ";
-            if (Sys.getDeviceSettings().phoneConnected)
-            {
+            if (Sys.getDeviceSettings().phoneConnected) {
                 infoStr = infoStr + "C";
-            }
-            else
-            {
+            } else {
                 infoStr = infoStr + "--";
             }
-            dc.drawText(w/2, 9*eleventhH-blockH, Gfx.FONT_TINY, infoStr, Gfx.TEXT_JUSTIFY_CENTER);
+            
+            var statusY;
+            if (App.getApp().getProperty("ClassicFace")) {
+                statusY = 9*eleventhH-blockH;
+            } else {
+                statusY = 7.75*eleventhH-blockH;
+            }
+            dc.drawText(w/2, statusY, Gfx.FONT_TINY, infoStr, Gfx.TEXT_JUSTIFY_CENTER);
         }
         
         // Show date info
         var now = Time.now();
         var date = Cal.info(now, Time.FORMAT_MEDIUM);
-        var longDate = Cal.info(now, Time.FORMAT_LONG);
-        var dateStr = "" + date.month + " " + date.day + ", " + date.year;
-        dc.drawText(w/2, 3*eleventhH-blockH+2, Gfx.FONT_TINY, dateStr, Gfx.TEXT_JUSTIFY_CENTER);
-        dc.drawText(w/2, 2*eleventhH-blockH+1, Gfx.FONT_TINY, longDate.day_of_week, Gfx.TEXT_JUSTIFY_CENTER);
+        if (App.getApp().getProperty("ClassicFace")) {
+            var longDate = Cal.info(now, Time.FORMAT_LONG);
+            var dateStr = "" + date.month + " " + date.day + ", " + date.year;
+            dc.drawText(w/2, 3*eleventhH-blockH+2, Gfx.FONT_TINY, dateStr, Gfx.TEXT_JUSTIFY_CENTER);
+            dc.drawText(w/2, 2*eleventhH-blockH+1, Gfx.FONT_TINY, longDate.day_of_week, Gfx.TEXT_JUSTIFY_CENTER);
+        } else {
+            var dateStr = date.day_of_week + ", " + date.month + " " + date.day;
+            dc.drawText(w/2, 3*eleventhH-blockH+4, Gfx.FONT_TINY, dateStr, Gfx.TEXT_JUSTIFY_CENTER);
+        }
         
         // Get steps info
         var actInfo = Act.getInfo();

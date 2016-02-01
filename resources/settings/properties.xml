@@ -1,5 +1,6 @@
 <properties>
 
+	<property id="ClassicFace" type="boolean">true</property>
 	<property id="ShowStatusInfo" type="boolean">true</property>
     <property id="BackgroundColor" type="number">0x000000</property>
     <property id="ForegroundColor" type="number">0x00FF00</property>

@@ -1,5 +1,9 @@
 <settings>
 
+	<setting propertyKey="@Properties.ClassicFace" title="@Strings.ClassicFace">
+        <settingConfig type="boolean" />
+    </setting>
+
     <setting propertyKey="@Properties.ShowStatusInfo" title="@Strings.ShowStatusInfo">
         <settingConfig type="boolean" />
     </setting>
